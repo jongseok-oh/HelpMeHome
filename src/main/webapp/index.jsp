@@ -84,23 +84,16 @@
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-8 col-xl-6">
                             <div style="display: flex; flex-direction: row;">
-                                <select class="form-select sido-select" aria-label="Default select example">
-                                    <option selected>도/광역시</option>
-                                    <option value="1">서울시</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                <select class="form-select sido-select" id = "dongbyeol-sido" aria-label="Default select example">
+                                    <option selected disabled>시/도</option>
                                 </select>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>시/구/군</option>
-                                    <option value="1">도봉구</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                <select class="form-select" id="dongbyeol-gugun" aria-label="Default select example">
+                                    <option selected disabled>시/구/군</option>
+
                                 </select>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>동</option>
-                                    <option value="1">도봉동</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                <select class="form-select" id = "dongbyeol-dong" aria-label="Default select example">
+                                    <option selected disabled>동</option>
+
                                 </select>
                             </div>
                         </div>
@@ -140,23 +133,14 @@
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-8 col-xl-6">
                             <div style="display: flex; flex-direction: row;">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>도/광역시</option>
-                                    <option value="1">서울시</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                <select class="form-select sido-select" aria-label="Default select example">
+                                    <option selected disabled>시/도</option>
                                 </select>
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>시/구/군</option>
-                                    <option value="1">도봉구</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                    <option selected disabled>시/구/군</option>
                                 </select>
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>동</option>
-                                    <option value="1">도봉동</option>
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                    <option selected disabled>동</option>
                                 </select>
                             </div>
                         </div>
@@ -196,4 +180,45 @@
             </section>
         </main>
         <%@ include file="/include/footer.jsp" %>
-    
+        <script>
+            let sidoSelect = document.getElementsByClassName("sido-select");
+
+            fetch("http://localhost:8080/whereismyhome08_3/location/getsido.do")
+            .then((res) => res.json())
+            .then((data) =>{
+                console.log(data);
+                for(let i = 0; i<sidoSelect.length; i++){
+                    let idx = 0;
+                    for(key in data){
+                        let opt = document.createElement("option");
+                        opt.value = idx++;
+                        opt.innerText = data[key];
+                        sidoSelect[i].appendChild(opt);
+                    }
+                }
+            });
+
+            let dongbyeol_sido = document.getElementById("dongbyeol-sido");
+            dongbyeol_sido.addEventListener("change", ()=>{
+                let sidoName = dongbyeol_sido.options[dongbyeol_sido.selectedIndex].text;
+                console.log(sidoName);
+                let dongbyeol_gugun = document.getElementById("dongbyeol-gugun");
+                fetch("http://localhost:8080/whereismyhome08_3/location/getgugun.do?sidoName="+sidoName)
+                .then((res) => res.json())
+                .then((data) =>{
+                    console.log(data);
+                    dongbyeol_gugun.innerHTML = "<option selected disabled>시/구/군</option>";
+                    let idx = 0;
+                    for(key in data){
+                        let opt = document.createElement("option");
+                        console.log("value : " + idx);
+                        opt.value = idx++;
+                        opt.innerText = data[key];
+                        dongbyeol_gugun.appendChild(opt);
+                    }
+                });
+            })
+
+        </script>
+    </body>
+</html>

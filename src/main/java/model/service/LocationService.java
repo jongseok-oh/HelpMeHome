@@ -57,6 +57,10 @@ public class LocationService {
 		}
 	}
 	
+	public List<SidoCode> getSidoList(){
+		return this.sidoCodes;
+	}
+	
 	public List<String> getGugunListBySido(String sidoName){
 		if(sidoGunMap.containsKey(sidoName))
 			return sidoGunMap.get(sidoName);

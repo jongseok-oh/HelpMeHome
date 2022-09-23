@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import model.dto.PageInfo;
+import model.dto.SidoCode;
 import model.service.LocationService;
 
 public class LocationController implements Controller{
@@ -19,7 +20,10 @@ public class LocationController implements Controller{
 		String url = request.getServletPath();
 		JSONArray jarray = null;
 		
-		if(url.equals("/location/getgugun.do")) {
+		if(url.equals("/location/getsido.do")) {
+			return getSido(request, response);
+		}
+		else if(url.equals("/location/getgugun.do")) {
 			return getGugun(request, response);
 		}else if(url.equals("/location/getdong.do")) {
 			return getDong(request, response);
@@ -27,15 +31,26 @@ public class LocationController implements Controller{
 		return jarray;
 	}
 	
+	private JSONArray getSido(HttpServletRequest request, HttpServletResponse response) {
+		JSONArray jsonArray = new JSONArray();
+		
+		List<SidoCode> sidoList = locationService.getSidoList();
+
+		for(SidoCode s: sidoList) {
+			jsonArray.put(s.getSidoName());
+		}
+		return jsonArray;
+	}
+	
+	
 	private JSONArray getGugun(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray jsonArray = new JSONArray();
 		
 		String sidoName = request.getParameter("sidoName");
 		List<String> gugunList = locationService.getGugunListBySido(sidoName);
 		
-		int idx = 1;
 		for(String s: gugunList) {
-			jsonArray.put(idx++, s);
+			jsonArray.put(s);
 		}
 		return jsonArray;
 	}
@@ -46,9 +61,8 @@ public class LocationController implements Controller{
 		String gugunName = request.getParameter("gugunName");
 		List<String> dongList = locationService.getDongListByGugun(gugunName);
 		
-		int idx = 1;
 		for(String s: dongList) {
-			jsonArray.put(idx++, s);
+			jsonArray.put(s);
 		}
 		return jsonArray;
 	}

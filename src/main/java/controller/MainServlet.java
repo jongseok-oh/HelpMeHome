@@ -84,8 +84,7 @@ public class MainServlet extends HttpServlet {
 			} else {
 				JSONArray jarray = (JSONArray) result;
 				response.setCharacterEncoding("utf-8");
-				response.getWriter().print(jarray.toString());
-				
+				response.getWriter().print(jarray.toString()); 
 			}
 			
 		} catch (Exception e) {
