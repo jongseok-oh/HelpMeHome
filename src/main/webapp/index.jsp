@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <%@ include file="/include/head.jsp" %>
+
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <%@ include file="/include/nav.jsp" %>
@@ -83,7 +84,7 @@
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-8 col-xl-6">
                             <div style="display: flex; flex-direction: row;">
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select sido-select" aria-label="Default select example">
                                     <option selected>도/광역시</option>
                                     <option value="1">서울시</option>
                                     <!-- <option value="2">Two</option>

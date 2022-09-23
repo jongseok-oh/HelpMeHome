@@ -21,5 +21,17 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
+        <script>
+            let sidoSelect = document.getElementsByClassName("sido-select");
+
+            fetch("http://localhost:8080/whereismyhome08_3/location/getsido.do")
+            .then((res) => res.json())
+            .then((data)=>{
+                
+            })
+
+            
+            
+        </script>
 </body>
 </html>
