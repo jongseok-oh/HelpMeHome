@@ -7,16 +7,16 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="${root}/signup_form.do">Sign Up</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${root}/index.do">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${root}/index.do">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${root}/user/signup_form.do">Sign Up</a></li>
                             <li class="nav-item dropdown">
                                 <!-- 수정 dropdown-->
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-dark dropdown-toggle" id="signin" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                         Sign in
                                     </button>
-                                    <form class="dropdown-menu p-4" method="post" action="${root}/login.do">
+                                    <form class="dropdown-menu p-4" method="post" action="${root}/user/login.do">
                                     <div class="mb-3">
                                         <label for="userId" class="form-label">ID</label>
                                         <input type="text" class="form-control" name="userId" id="userId" placeholder="user id">

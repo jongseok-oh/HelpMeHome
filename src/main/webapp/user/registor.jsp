@@ -19,7 +19,7 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post" action="${root}/register.do">
+                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post" action="${root}/user/register.do">
                                     
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="userId" id="userId" type="text" placeholder="Enter your name..." data-sb-validations="required" />

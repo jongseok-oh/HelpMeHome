@@ -40,7 +40,7 @@ public class UserDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select from user where userId = ? and passWord = ?";
+		String sql = "select name from user where userId = ? and passWord = ?";
 		try {
 			conn= DBUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);

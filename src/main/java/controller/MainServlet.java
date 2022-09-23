@@ -47,23 +47,23 @@ public class MainServlet extends HttpServlet {
 		String url = request.getServletPath();
 		System.out.println("url:" + url);
 
-		if(url.startsWith("/index")) {
-			HttpSession session = request.getSession();
-			if(session.getAttribute("userId") == null) {
-				System.out.println("로그인 x");
-				response.sendRedirect(root+"/login.do");
-				return;
-			}
-		}
+//		if(url.startsWith("/user")) {
+//			HttpSession session = request.getSession();
+//			if(session.getAttribute("userId") == null) {
+//				System.out.println("로그인 x");
+//				response.sendRedirect(root+"/user/login.do");
+//				return;
+//			}
+//		}
 		
 		
 		PageInfo pageInfo = null;
 		try {
-			if (url.equals("/signup_form.do")) {
+			if (url.equals("/user/signup_form.do")) {
 				pageInfo = signupForm(request, response);
-			} else if (url.equals("/register.do")) {
+			} else if (url.equals("/user/register.do")) {
 				pageInfo = register(request, response);
-			} else if (url.equals("/login.do")) {
+			} else if (url.equals("/user/login.do")) {
 				pageInfo = login(request, response);
 			} else {				
 				pageInfo = index(request, response);				
@@ -89,18 +89,19 @@ public class MainServlet extends HttpServlet {
 
 
 	private PageInfo login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println(1);
 		String userId = request.getParameter("userId");
 		String passWord = request.getParameter("passWord");
+		System.out.println(userId+","+passWord);
 		
 		String name = userService.login(userId, passWord);
-		
-		
+		System.out.println(2);
 		if(name != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", name);
 		}
-		
+		System.out.println(3);
 		return new PageInfo(false,"/index.do");
 		
 		//에러 처리안함1
