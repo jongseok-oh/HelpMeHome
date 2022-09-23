@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" style="font-size: 200%;" href="index.html">HELP ME HOME</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Sign Up</a></li>
+                            <li class="nav-item dropdown">
+                                <!-- 수정 dropdown-->
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                        Sign in
+                                    </button>
+                                    <form class="dropdown-menu p-4">
+                                    <div class="mb-3">
+                                        <label for="exampleDropdownFormEmail2" class="form-label">ID</label>
+                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="user id">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                                    <label class="form-check-label" for="dropdownCheck2">
+                                            ID 저장
+                                        </label>
+                                        </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-dark">Sign in</button>
+                                    </form>
+                                    </div>
+                            </li>
+                            <!-- 수정 dropdown-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
