@@ -22,6 +22,7 @@ public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private UserController userController = new UserController();
+	private HomeController homeController = new HomeController();
 	private LocationController locationController = new LocationController();
 	
 	private String root;
@@ -59,19 +60,26 @@ public class MainServlet extends HttpServlet {
 				return;
 			}
 		}
+		
+		
+		
 		Object result = null;
 		
 		try {
 			Controller controller = null;
 			if(url.startsWith("/user")) {
 				controller = userController;
-			}else  {
+			}else if(url.startsWith("/location")) {
 				controller = locationController;
+			} else {
+				controller = homeController;
 			}
 		
 			if(controller != null) {
 				 result = controller.handleRequest(request,response);
 			}
+			
+			
 			
 			if(result instanceof PageInfo) {
 				PageInfo pageInfo = (PageInfo)result;
