@@ -21,10 +21,62 @@ public class UserController implements Controller{
 			return register(request, response);
 		} else if (url.equals("/user/login.do")) {
 			return login(request, response);
+		} else if (url.equals("/user/fix_form.do")) {
+			return fixForm(request, response);
+		}  else if (url.equals("/user/logout.do")) {
+			return logout(request, response);
+		} else if (url.equals("/user/modify.do")) {
+			return modify(request, response);
+		} else if (url.equals("/user/delete.do")) {
+			return delete(request, response);
 		} 	
 		
 		return null;
 	}
+		private PageInfo delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String userId = request.getParameter("userId");
+		
+		boolean res = userService.deleteUser(userId);
+		
+		if(res) {
+			request.setAttribute("msg", "유저 삭제에 성공하였습니다.");
+			return new PageInfo(true,"/user/logout.do");
+		}else {
+			request.setAttribute("msg", "유저 삭제에 실패하였습니다.");
+			return new PageInfo(true,"user/fix_form.do");
+		}
+		
+	}
+	
+	
+	private PageInfo modify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String userId = request.getParameter("userId");
+		String passWord = request.getParameter("passWord");
+		String name = request.getParameter("name");
+		String phoneNumber = request.getParameter("phoneNumber");
+		
+		User user = new User(userId,passWord,name,phoneNumber);
+		boolean res = userService.modifyUser(user);
+		
+		if(res) {
+			request.setAttribute("msg", "유저 수정에 성공하였습니다.");
+		}else {
+			request.setAttribute("msg", "유저 수정에 실패하였습니다.");			
+		}
+		return new PageInfo(true,"/index.do");
+	}
+
+	private PageInfo logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return new PageInfo(false,"/index.do");
+	}
+
+	
+
 	private PageInfo login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String userId = request.getParameter("userId");
@@ -57,7 +109,11 @@ public class UserController implements Controller{
 		User user = new User(userId,passWord,name,phoneNumber);
 		
 		boolean res = userService.registerUser(user);
-		//일단 예외처리안함
+		if(res) {
+			request.setAttribute("msg", "유저 등록에 성공하였습니다.");
+		}else {
+			request.setAttribute("msg", "유저 등록에 실패하였습니다.");			
+		}
 
 		return new PageInfo(false,"/index.do");
 	}
@@ -67,7 +123,9 @@ public class UserController implements Controller{
 	private PageInfo signupForm(HttpServletRequest request, HttpServletResponse response) {
 		return new PageInfo(false,"/user/registor.jsp");
 	}
-
+	private PageInfo fixForm(HttpServletRequest request, HttpServletResponse response) {
+		return new PageInfo(false,"/user/fix.jsp");
+	}
 
 
 	

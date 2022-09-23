@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
+
+	<c:if test="${not empty msg}">
+		alert("${msg}");  
+	</c:if>
+
+</script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
                     <a class="navbar-brand" style="font-size: 200%;" href="index.html">HELP ME HOME</a>
@@ -9,6 +16,8 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="${root}/index.do">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="${root}/index.do">About</a></li>
+                            <c:choose>
+							<c:when test="${empty userId}">	
                             <li class="nav-item"><a class="nav-link" href="${root}/user/signup_form.do">Sign Up</a></li>
                             <li class="nav-item dropdown">
                                 <!-- 수정 dropdown-->
@@ -37,6 +46,13 @@
                                     </form>
                                     </div>
                             </li>
+                            </c:when>
+                            <c:otherwise>
+                           		 <li class="nav-item"><a class="nav-link" href="${root}/user/fix_form.do">수정</a></li>
+                           		 <li class="nav-item"><a class="nav-link" href="${root}/user/logout.do">로그아웃</a></li>	
+                           	</c:otherwise>
+							</c:choose> 
+                            
                             <!-- 수정 dropdown-->
                         </ul>
                     </div>

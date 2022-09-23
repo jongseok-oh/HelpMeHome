@@ -18,23 +18,23 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post" action="${root}/user/modify.do">
                                     
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                        <label for="password">Username</label>
+                                        <input class="form-control" id="userId" name="userId" type="text"  />
+                                        <label for="userId">Username</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                        <label for="password">Password</label>
+                                        <input class="form-control"id="passWord" name="passWord" type="text"  />
+                                        <label for="passWord">Password</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <input class="form-control" id="name" name="name" type="text"  />
                                         <label for="name">이름</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                        <label for="email">전화번호</label>
+                                        <input class="form-control" id="phoneNumber" name="phoneNumber" type="text" />
+                                        <label for="phoneNumber">전화번호</label>
                                     </div>
                                    
                                     <div class="
@@ -43,22 +43,14 @@
                                     justify-content-around 
                                     col
                                     ">
-                                    <button type="button" class="btn btn-lg btn-outline-primary output col-5">
+                                    <button  class="btn btn-lg btn-outline-primary output col-5" type="submit"  formaction="${root}/index.do">
                                             확인
                                     </button>
-                                    <button type="button" class="btn btn-lg btn-primary output col-5">
+                                    <button  class="btn btn-lg btn-primary output col-5" type="submit" >
                                             수정
                                     </button>
-</div>
-                                    <!--
-                                    <div class="form-floating mb-3">
-                                        <div class="d-grid"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">확인</button></div>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <div class="d-grid"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">수정</button></div>
-                                    </div>
-                                    --> 
-                                    <button type="button" class="btn btn-lg btn-outline-dark">삭제하기</button>
+									</div>
+                                    <button class="btn btn-lg btn-outline-dark" type="submit"  formaction="${root}/user/delete.do">삭제하기</button>
                                 </form>
                             </div>
                         </div>

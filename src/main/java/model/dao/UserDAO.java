@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import model.dto.User;
 import util.DBUtil;
@@ -56,6 +57,46 @@ public class UserDAO {
 			DBUtil.close(conn,pstmt,rs);
 		}
 		return null;
+	}
+
+	public int updateUser(User user) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update user set passWord=?  ,name = ?,phoneNumber = ? where userId = ?";
+		try {
+			// step2
+			conn = DBUtil.getConnection();
+			
+			// step3
+			pstmt = conn.prepareStatement(sql);
+			
+			// step4
+			pstmt.setString(1, user.getPassWord());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getPhoneNumber());
+			pstmt.setString(4, user.getUserId());
+			
+			int rowCnt = pstmt.executeUpdate();
+			
+			return rowCnt;
+		}finally {
+			DBUtil.close(pstmt,conn);
+		}
+	}
+
+	public int deleteUser(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql="delete from user where userId = ?";
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			int cnt = pstmt.executeUpdate();
+			return cnt;
+		} finally {
+			DBUtil.close(conn,pstmt);
+		}
 	}
 	
 }
