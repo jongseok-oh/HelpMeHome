@@ -19,7 +19,14 @@ public class LocationService {
 	private List<GugunCode> gugunCodes;
 	private List<DongCode> dongCodes;
 	
-	public LocationService() {
+	private static LocationService instance = null;
+	
+	public static LocationService getInstance() {
+		if(instance == null) instance = new LocationService();
+		return instance;
+	}
+	
+	private LocationService() {
 		sidoCodes = locationDao.getSidoCodeList();
 		gugunCodes = locationDao.getGugunCodeList();
 		dongCodes = locationDao.getDongCodeList();
