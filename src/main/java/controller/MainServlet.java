@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+
 import model.dto.PageInfo;
 import model.dto.User;
 import model.service.LocationService;
@@ -80,7 +82,9 @@ public class MainServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath()+pageInfo.getPage());
 				}
 			} else {
-				
+				JSONArray jarray = (JSONArray) result;
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print(jarray.toString());
 				
 			}
 			
