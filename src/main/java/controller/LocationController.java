@@ -10,21 +10,20 @@ import org.json.JSONArray;
 import model.dto.PageInfo;
 import model.service.LocationService;
 
-public class LocationController {
+public class LocationController implements Controller{
 	
 	private LocationService locationService = LocationService.getInstance();
 	
-	public JSONArray ff(HttpServletRequest request, HttpServletResponse response) {
-		
+	@Override
+	public JSONArray handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = request.getServletPath();
 		JSONArray jarray = null;
 		
 		if(url.equals("/location/getgugun.do")) {
-			jarray = getGugun(request, response);
+			return getGugun(request, response);
 		}else if(url.equals("/location/getdong.do")) {
-			jarray = getDong(request, response);
+			return getDong(request, response);
 		}
-		
 		return jarray;
 	}
 	
@@ -53,4 +52,6 @@ public class LocationController {
 		}
 		return jsonArray;
 	}
+
+	
 }
