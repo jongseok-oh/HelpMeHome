@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
 <html lang="en">
     <%@ include file="/include/head.jsp" %>
@@ -18,26 +19,26 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post" action="${root}/register.do">
                                     
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <input class="form-control" name="userId" id="userId" type="text" placeholder="Enter your name..." data-sb-validations="required" />
                                         <label for="name">Username</label>
                                         
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <input class="form-control" name="passWord" id="passWord" type="text" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="password">Password</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <input class="form-control" name="name" id="name"  type="text" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="name">이름</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <input class="form-control" name="phoneNumber" id="phoneNumber" type="text" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="email">전화번호</label>
                                     </div>
-                                    <div class="d-grid"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Sign in</button></div>
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Sign in</button></div>
                                 </form>
                             </div>
                         </div>

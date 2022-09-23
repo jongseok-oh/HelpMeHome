@@ -9,21 +9,21 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Sign Up</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${root}/signup_form.do">Sign Up</a></li>
                             <li class="nav-item dropdown">
                                 <!-- 수정 dropdown-->
                                 <div class="dropdown">
-                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    <button type="button" class="btn btn-dark dropdown-toggle" id="signin" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                         Sign in
                                     </button>
-                                    <form class="dropdown-menu p-4">
+                                    <form class="dropdown-menu p-4" method="post" action="${root}/login.do">
                                     <div class="mb-3">
-                                        <label for="exampleDropdownFormEmail2" class="form-label">ID</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="user id">
+                                        <label for="userId" class="form-label">ID</label>
+                                        <input type="text" class="form-control" name="userId" id="userId" placeholder="user id">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="password">
+                                        <label for="passWord" class="form-label">Password</label>
+                                        <input type="text" class="form-control" name="passWord" id="passWord"  placeholder="password">
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check">
