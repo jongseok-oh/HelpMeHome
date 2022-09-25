@@ -191,25 +191,29 @@
             </div>
           </div>
           <br /><br /><br /><br /><br />
-          
           <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-8 col-xl-6">
-                            <div style="display: flex; flex-direction: row;">
-                                <select class="form-select sido-select" aria-label="Default select example">
-                                    <option selected disabled>시/도</option>
-                                </select>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected disabled>시/구/군</option>
-                                </select>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected disabled>동</option>
-                                </select>
-                                <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="container">
+            <div class="col-lg-8 col-xl-6">
+              <div style="display: flex; flex-direction: row">
+                <select
+                  class="form-select sido-select"
+                  id="apart-sido"
+                  aria-label="Default select example"
+                >
+                  <option selected disabled>시/도</option>
+                </select>
+                <select class="form-select" id="apart-gugun" aria-label="Default select example">
+                  <option selected disabled>시/구/군</option>
+                </select>
+                <select class="form-select" id="apart-dong" aria-label="Default select example">
+                  <option selected disabled>동</option>
+                </select>
+                 <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
+              </div>
+            </div>
+          </div>
+          <br />
+          
+          
 		
 		<div class="row">
 			<table class="table table-bordered table-hover">
