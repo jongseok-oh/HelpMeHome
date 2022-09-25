@@ -47,4 +47,26 @@ public class ApartDao {
 	public List<BaseAddress> getBaseAddressListByDongCode(String dongCode){
 		return getBaseAddressListByDongCodeLimit(dongCode, 0, 6);
 	}
+	
+	public int getApartCnt(String dongCode) {
+		Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 String sql = "select count(*) from baseaddress where dongCode = ?";
+		 try {
+			 conn = DBUtil.getConnection();
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, dongCode);
+			 rs = pstmt.executeQuery();
+			 
+			 while(rs.next()) {
+				 return rs.getInt(1);
+			 }
+		 }catch (Exception e) {
+			 e.printStackTrace();
+		 }finally {
+			 DBUtil.close(conn,pstmt,rs);
+		 }
+		 return 0;
+	}
 }

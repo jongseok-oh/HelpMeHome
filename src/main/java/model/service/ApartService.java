@@ -16,4 +16,8 @@ public class ApartService {
 		int limitStart = (pageNum - 1) * apartCnt;
 		return apartDao.getBaseAddressListByDongCodeLimit(dongCode, limitStart, apartCnt);
 	}
+	
+	public int getApartPageCnt(String dongCode) {
+		return (apartDao.getApartCnt(dongCode) + apartCnt - 1)/apartCnt;
+	}
 }

@@ -75,4 +75,15 @@ public class LocationService {
 			return gugunDongMap.get(gugunName);
 		return null;
 	}
+	
+	public String getDongCode(String sidoName, String gugunName, String dongName) {
+		
+		for(DongCode dc: dongCodes) {
+			if(dc.getSidoName().equals(sidoName)
+			&& dc.getGugunName().equals(gugunName)
+			&& dc.getDongName().equals(dongName))
+			return dc.getDongCode();
+		}
+		return null;
+	}
 }

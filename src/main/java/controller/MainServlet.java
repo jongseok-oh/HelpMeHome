@@ -82,9 +82,7 @@ public class MainServlet extends HttpServlet {
 			if(controller != null) {
 				 result = controller.handleRequest(request,response);
 			}
-			
-			
-			
+
 			if(result instanceof PageInfo) {
 				PageInfo pageInfo = (PageInfo)result;
 				if(pageInfo.isForward()) {

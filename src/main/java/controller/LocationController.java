@@ -21,17 +21,17 @@ public class LocationController implements Controller{
 		JSONArray jarray = null;
 		
 		if(url.equals("/location/getsido.do")) {
-			return getSido(request, response);
+			return getSidoList(request, response);
 		}
 		else if(url.equals("/location/getgugun.do")) {
-			return getGugun(request, response);
+			return getGugunList(request, response);
 		}else if(url.equals("/location/getdong.do")) {
-			return getDong(request, response);
+			return getDongList(request, response);
 		}
 		return jarray;
 	}
 	
-	private JSONArray getSido(HttpServletRequest request, HttpServletResponse response) {
+	private JSONArray getSidoList(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray jsonArray = new JSONArray();
 		
 		List<SidoCode> sidoList = locationService.getSidoList();
@@ -43,7 +43,7 @@ public class LocationController implements Controller{
 	}
 	
 	
-	private JSONArray getGugun(HttpServletRequest request, HttpServletResponse response) {
+	private JSONArray getGugunList(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray jsonArray = new JSONArray();
 		
 		String sidoName = request.getParameter("sidoName");
@@ -55,7 +55,7 @@ public class LocationController implements Controller{
 		return jsonArray;
 	}
 	
-	private JSONArray getDong(HttpServletRequest request, HttpServletResponse response) {
+	private JSONArray getDongList(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray jsonArray = new JSONArray();
 		
 		String gugunName = request.getParameter("gugunName");
@@ -66,6 +66,5 @@ public class LocationController implements Controller{
 		}
 		return jsonArray;
 	}
-
 	
 }
