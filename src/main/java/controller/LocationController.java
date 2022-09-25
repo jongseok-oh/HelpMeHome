@@ -16,7 +16,7 @@ public class LocationController implements Controller{
 	private LocationService locationService = LocationService.getInstance();
 	
 	@Override
-	public JSONArray handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public Object handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = request.getServletPath();
 		JSONArray jarray = null;
 		

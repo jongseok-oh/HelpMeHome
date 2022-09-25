@@ -24,6 +24,7 @@ public class MainServlet extends HttpServlet {
 	private UserController userController = new UserController();
 	private HomeController homeController = new HomeController();
 	private LocationController locationController = new LocationController();
+	private ApartController apartController = new ApartController();
 	
 	private String root;
 	
@@ -71,7 +72,10 @@ public class MainServlet extends HttpServlet {
 				controller = userController;
 			}else if(url.startsWith("/location")) {
 				controller = locationController;
-			} else {
+			}else if(url.startsWith("/apart")) {
+				controller = apartController;
+			}
+			else {
 				controller = homeController;
 			}
 		

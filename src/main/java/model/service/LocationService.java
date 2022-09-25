@@ -13,17 +13,20 @@ import model.dto.SidoCode;
 public class LocationService {
 	private LocationDao locationDao = new LocationDao();
 	
+	// static instance
 	private Map<String, List<String>> sidoGunMap = new HashMap<>();
 	private Map<String, List<String>> gugunDongMap = new HashMap<>();
 	private List<SidoCode> sidoCodes;
 	private List<GugunCode> gugunCodes;
 	private List<DongCode> dongCodes;
-	
-	private static LocationService instance = null;
+	// -----------------------------------------------------------------
 	
 	public static LocationService getInstance() {
-		if(instance == null) instance = new LocationService();
-		return instance;
+		return LazyHolder.instance;
+	}
+	
+	private static class LazyHolder{
+		private static final LocationService instance = new LocationService();
 	}
 	
 	private LocationService() {
