@@ -191,67 +191,52 @@
             </div>
           </div>
           <br /><br /><br /><br /><br />
+          
           <div class="row gx-5 justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-              <div style="display: flex; flex-direction: row">
-                <select
-                  class="form-select sido-select"
-                  id="apart-sido"
-                  aria-label="Default select example"
-                >
-                  <option selected disabled>시/도</option>
-                </select>
-                <select class="form-select" id="apart-gugun" aria-label="Default select example">
-                  <option selected disabled>시/구/군</option>
-                </select>
-                <select class="form-select" id="apart-dong" aria-label="Default select example">
-                  <option selected disabled>동</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <br />
-          <div class="row gx-5">
-            <div style="display: flex; flex-direction: row">
-              <div style="flex-basis: 10%"></div>
-              <ul class="list-group list-group-flush" style="flex-basis: 20%">
-                <li class="list-group-item" style="font-size: 30px">거래 정보</li>
-                <li class="list-group-item">
-                  극동 <br />
-                  거래금액 : 32,500만원 <br />
-                  면적:84.83 <br />
-                  2019. 12. 3
-                </li>
-                <li class="list-group-item">
-                  도봉산리베니움 <br />
-                  거래금액 : 29,500만원 <br />
-                  면적:84.19 <br />
-                  2019. 12. 12
-                </li>
-                <li class="list-group-item">
-                  도봉파크빌2 <br />
-                  거래금액 : 43,100만원 <br />
-                  면적:84.166 <br />
-                  2019. 11. 4
-                </li>
-                <li class="list-group-item">
-                  도봉파크빌3 <br />
-                  거래금액 : 45,600만원 <br />
-                  면적:84.163 <br />
-                  2019. 10. 14
-                </li>
-                <li class="list-group-item">
-                  동아에코빌 <br />
-                  거래금액 : 48,000만원 <br />
-                  면적:84.967000000001 <br />
-                  2019. 12. 2
-                </li>
-              </ul>
-              <img src="./img/map2.PNG" style="margin-left: auto; flex-basis: 40%" alt="" />
-              <div style="flex-basis: 10%"></div>
-            </div>
-          </div>
-        </div>
+                        <div class="col-lg-8 col-xl-6">
+                            <div style="display: flex; flex-direction: row;">
+                                <select class="form-select sido-select" aria-label="Default select example">
+                                    <option selected disabled>시/도</option>
+                                </select>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected disabled>시/구/군</option>
+                                </select>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected disabled>동</option>
+                                </select>
+                                <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+		
+		<div class="row">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>일시</th>
+						<th>동</th>
+						<th>아파트명</th>
+						<th>층</th>
+						<th>금액</th>
+					</tr>			
+				</thead>
+				<tbody>
+				
+					<tr>
+						<td>1</td>					
+						<td>1</td>	
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+					</tr>
+			
+				
+				</tbody>
+			</table>
+		</div>	
+	</div>
       </section>
     </main>
     <%@ include file="/include/footer.jsp" %>
