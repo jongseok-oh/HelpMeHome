@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.dto.BaseAddress;
 import model.dto.DongCode;
 import model.dto.GugunCode;
 import model.dto.SidoCode;
@@ -85,4 +86,34 @@ public class LocationDao {
 		 }
 		 return dongCodes;
 	 }
+	 
+		public BaseAddress getBaseAddressByDongCode(String dongCode){
+			
+			Connection conn = null;
+			 PreparedStatement pstmt = null;
+			 ResultSet rs = null;
+			 String sql = "select * from baseaddress where dongCode = ?";
+			 try {
+				 conn = DBUtil.getConnection();
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, dongCode);
+				 rs = pstmt.executeQuery();
+				 
+				 while(rs.next()) {
+					 int no = rs.getInt(1);
+					 String sidoName = rs.getString(2);
+					String gugunName = rs.getString(3);
+					String dongName = rs.getString(4);
+					//String dongCode = rs.getString(5);
+					String lat = rs.getString(6);
+					String lng = rs.getString(7);
+					return new BaseAddress(no, sidoName, gugunName, dongName, dongCode, lat, lng);
+				 }
+			 }catch (Exception e) {
+				 e.printStackTrace();
+			 }finally {
+				 DBUtil.close(conn,pstmt,rs);
+			 }
+			 return null;
+		}
 }

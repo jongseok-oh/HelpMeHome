@@ -1,6 +1,6 @@
 package model.dto;
 
-public class houseinfo {
+public class Houseinfo {
 	int aptCode;
 	String aptName;
 	String dongCode;
@@ -10,7 +10,7 @@ public class houseinfo {
 	String lat;
 	String lng;
 	String img;
-	public houseinfo(int aptCode, String aptName, String dongCode, String dongName, int buildYear, String jibun,
+	public Houseinfo(int aptCode, String aptName, String dongCode, String dongName, int buildYear, String jibun,
 			String lat, String lng, String img) {
 		super();
 		this.aptCode = aptCode;
