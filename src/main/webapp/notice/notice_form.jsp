@@ -17,9 +17,9 @@
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>공지날짜</th>
 						<th>공지이름</th>
-						<th>내용</th>
+						<th>공지날짜</th>
+						<th>작성자</th>
 					</tr>			
 				</thead>
 				<tbody>
@@ -32,10 +32,10 @@
 						<c:forEach items="${requestScope.noticeList}" 
 							var="notice" varStatus="status">
 							<tr>
-								<td>${status.count}</td>
-								<td>${notice.title}</td>
-								<td><a href="${root}/notice/detail.do?noticeno=${notice.no}">${notice.writer}</a></td>
+								<td>${notice.no}</td>
+								<td><a href="${root}/notice/notice_detail.do?no=${notice.no}">${notice.title}</a></td>
 								<td>${notice.date}</td>
+								<td>${notice.writer}</td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
