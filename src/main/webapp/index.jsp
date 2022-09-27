@@ -186,7 +186,7 @@
                   2019. 12. 2
                 </li>
               </ul>
-              <img src="./img/map1.PNG" style="margin-left: auto; flex-basis: 40%" alt="" />
+              <div id="map" style="flex-basis: 60%"></div>
               <div style="flex-basis: 10%"></div>
             </div>
           </div>
@@ -207,7 +207,7 @@
                 <select class="form-select" id="apart-dong" aria-label="Default select example">
                   <option selected disabled>동</option>
                 </select>
-                 <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
+                  <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
               </div>
             </div>
           </div>
@@ -227,7 +227,6 @@
 					</tr>			
 				</thead>
 				<tbody>
-				
 					<tr>
 						<td>1</td>					
 						<td>1</td>	
@@ -235,8 +234,6 @@
 						<td>1</td>
 						<td>1</td>
 					</tr>
-			
-				
 				</tbody>
 			</table>
 		</div>	
@@ -244,7 +241,17 @@
       </section>
     </main>
     <%@ include file="/include/footer.jsp" %>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c2ed21ab6956d39e256071885d15bfd"></script>
     <script>
+
+      let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+      let options = { //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+        level: 5 //지도의 레벨(확대, 축소 정도)
+      };
+
+      let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
       let sidoSelect = document.getElementsByClassName("sido-select");
 
       fetch("http://localhost:8080/whereismyhome08_3/location/getsido.do")
@@ -262,12 +269,17 @@
           }
         });
 
-      function sidoSelectOnChange(sidoId, gugunId) {
+      function sidoSelectOnChange(sidoId, gugunId, dongId) {
         let sidoSelectElement = document.getElementById(sidoId);
+        let dongSelectElement = document.getElementById(dongId);
+        
         sidoSelectElement.addEventListener("change", () => {
           let sidoName = sidoSelectElement.options[sidoSelectElement.selectedIndex].text;
           //console.log(sidoName);
           let gugunSelectElement = document.getElementById(gugunId);
+
+          dongSelectElement.innerHTML = "<option selected disabled>동</option>";
+
           fetch("http://localhost:8080/whereismyhome08_3/location/getgugun.do?sidoName=" + sidoName)
             .then((res) => res.json())
             .then((data) => {
@@ -310,10 +322,69 @@
         });
       }
 
-      sidoSelectOnChange("dongbyeol-sido", "dongbyeol-gugun");
-      sidoSelectOnChange("apart-sido", "apart-gugun");
+      function dongSelectOnChange(sidoId, gugunId, dongId){
+        let dongSelectElement = document.getElementById(dongId);
+        dongSelectElement.addEventListener("change", () => {
+          let sidoSelectElement = document.getElementById(sidoId);
+          let gugunSelectElement = document.getElementById(gugunId);
+
+          let sidoName = sidoSelectElement.options[sidoSelectElement.selectedIndex].text;
+          
+          let gugunName = gugunSelectElement.options[gugunSelectElement.selectedIndex].text;
+          let dongName = dongSelectElement.options[dongSelectElement.selectedIndex].text;
+          console.log(sidoName + " " + gugunName + " " + dongName);
+          //console.log(sidoName);
+
+          fetch(
+            `http://localhost:8080/whereismyhome08_3/location/getcoordinate.do?sidoName=\${sidoName}&gugunName=\${gugunName}&dongName=\${dongName}`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              //console.log(data)
+
+              let moveLatLon = new kakao.maps.LatLng(data[0]["lat"], data[0]["lng"]);
+
+              options = { //지도를 생성할 때 필요한 기본 옵션
+                center: moveLatLon,
+                level: 5 //지도의 레벨(확대, 축소 정도)
+              };
+
+              map = new kakao.maps.Map(container , options);
+
+              let dongCode = data[0]["dongCode"];
+
+              fetch(
+                `http://localhost:8080/whereismyhome08_3/apart/getlist.do?dongCode=\${dongCode}`
+              ).then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                
+                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+
+                for(let i = 0; i < data.length; i++){
+
+                  let imageSize = new kakao.maps.Size(24, 35); 
+
+                  let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                  let marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(data[i]["lat"], data[i]["lng"]),
+                    image : markerImage
+                  })
+                }
+              });
+          });      
+        });
+      }
+
+
+      sidoSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
+      sidoSelectOnChange("apart-sido", "apart-gugun", "apart-dong");
       gugunSelectOnChange("dongbyeol-gugun", "dongbyeol-dong");
       gugunSelectOnChange("apart-gugun", "apart-dong");
+
+      dongSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
     </script>
   </body>
 </html>
