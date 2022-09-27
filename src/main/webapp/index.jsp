@@ -247,7 +247,7 @@
       let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
       let options = { //지도를 생성할 때 필요한 기본 옵션
         center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-        level: 3 //지도의 레벨(확대, 축소 정도)
+        level: 5 //지도의 레벨(확대, 축소 정도)
       };
 
       let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -343,15 +343,36 @@
               //console.log(data)
 
               let moveLatLon = new kakao.maps.LatLng(data[0]["lat"], data[0]["lng"]);
-              map.panTo(moveLatLon);
 
-              let = dongCode = data[0]["dongCode"];
+              options = { //지도를 생성할 때 필요한 기본 옵션
+                center: moveLatLon,
+                level: 5 //지도의 레벨(확대, 축소 정도)
+              };
+
+              map = new kakao.maps.Map(container , options);
+
+              let dongCode = data[0]["dongCode"];
 
               fetch(
                 `http://localhost:8080/whereismyhome08_3/apart/getlist.do?dongCode=\${dongCode}`
               ).then((res) => res.json())
               .then((data) => {
-                console.log(data)
+                console.log(data);
+                
+                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+
+                for(let i = 0; i < data.length; i++){
+
+                  let imageSize = new kakao.maps.Size(24, 35); 
+
+                  let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                  let marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(data[i]["lat"], data[i]["lng"]),
+                    image : markerImage
+                  })
+                }
               });
           });      
         });
