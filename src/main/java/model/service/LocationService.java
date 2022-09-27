@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.dao.LocationDao;
+import model.dto.BaseAddress;
 import model.dto.DongCode;
 import model.dto.GugunCode;
 import model.dto.SidoCode;
@@ -85,5 +86,9 @@ public class LocationService {
 			return dc.getDongCode();
 		}
 		return null;
+	}
+	
+	public BaseAddress getBaseAddressByDongCode(String dongCode) {
+		return locationDao.getBaseAddressByDongCode(dongCode);
 	}
 }

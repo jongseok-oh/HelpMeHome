@@ -53,7 +53,7 @@ public class MainServlet extends HttpServlet {
 		String url = request.getServletPath();
 		System.out.println("url:" + url);
 
-		if(url.startsWith("/location")) {
+		if(url.startsWith("/location") || url.startsWith("/apart")) {
 			HttpSession session = request.getSession();
 			if(session.getAttribute("userId") == null) {
 				System.out.println("로그인 x");

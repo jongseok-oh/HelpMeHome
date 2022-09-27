@@ -9,13 +9,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import model.dto.BaseAddress;
+import model.dto.Houseinfo;
 import model.service.ApartService;
 import model.service.LocationService;
 
 public class ApartController implements Controller{
 	
 	private ApartService apartService = new ApartService();
-	private LocationService locationService = LocationService.getInstance();
+	//private LocationService locationService = LocationService.getInstance();
 	
 	@Override
 	public JSONArray handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -23,58 +24,25 @@ public class ApartController implements Controller{
 		JSONArray jarray = null;
 		
 		if(url.equals("/apart/getlist.do")) {
-			return getBaseAddressListByPageNum(request,response);
-		}else if(url.equals("/apart/getpagecnt.do")) {
-			return getApartPageCnt(request, response);
+			return getHouseinfoListByDongCode(request,response);
 		}
 		return jarray;
 	}
-	
-	private String getDongCode(HttpServletRequest request, HttpServletResponse response) {
-		String sidoName = request.getParameter("sidoName");
-		String gugunName = request.getParameter("gugunName");
-		String dongName = request.getParameter("dongName");
+
+	private JSONArray getHouseinfoListByDongCode(HttpServletRequest request, HttpServletResponse response) {
+		JSONArray jarray = new JSONArray();
+		String dongCode = request.getParameter("dongCode");
+		List<Houseinfo> houseinfos = apartService.getHouseinfoListByDongCode(dongCode);
 		
-		String dongCode = locationService.getDongCode(sidoName, gugunName, dongName);
-		return dongCode;
-	}
-	
-	private JSONArray getBaseAddressListByPageNum(HttpServletRequest request, HttpServletResponse response) {
-		JSONArray jsonArray = new JSONArray();
-		
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		
-		String dongCode = getDongCode(request, response);
-		if(dongCode == null) return jsonArray;
-		
-		List<BaseAddress> addresses = apartService.getBaseAddressListByPageNum(dongCode, pageNum);
-		
-		
-		for(BaseAddress b: addresses) {
-			JSONObject jo = new JSONObject();
-			
-			jo.put("no", b.getNo());
-			jo.put("sidoName", b.getSidoName());
-			jo.put("gugunName", b.getGugunName());
-			jo.put("dongName", b.getDongName());
-			jo.put("dongCode", b.getDongCode());
-			jo.put("lat", b.getLat());
-			jo.put("lng", b.getLng());
-			
-			jsonArray.put(jo.toString());
+		for(Houseinfo info : houseinfos) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("aptCode", info.getAptCode());
+			jsonObject.put("aptName", info.getAptName());
+			jsonObject.put("buildYear", info.getBuildYear());
+			jsonObject.put("lat", info.getLat());
+			jsonObject.put("lng", info.getLng());
+			jarray.put(jsonObject);
 		}
-		return jsonArray;
-	}
-	
-	private JSONArray getApartPageCnt(HttpServletRequest request, HttpServletResponse response) {
-		JSONArray jsonArray = new JSONArray();
-		
-		String dongCode = getDongCode(request, response);
-		if(dongCode == null) {
-			jsonArray.put(0);
-			return jsonArray;
-		}
-		jsonArray.put(apartService.getApartPageCnt(dongCode));
-		return jsonArray;
+		return jarray;
 	}
 }
