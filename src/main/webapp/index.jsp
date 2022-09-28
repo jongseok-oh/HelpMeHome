@@ -322,6 +322,24 @@
         });
       }
 
+      function closeOverlay() {
+        overlay.setMap(null);     
+      }
+
+      
+      function makeOverListener(map, marker, infowindow) {
+        return function() {
+            infowindow.open(map, marker);
+        };
+      }
+
+      
+      function makeOutListener(infowindow) {
+        return function() {
+            infowindow.close();
+        };
+      }
+
       function dongSelectOnChange(sidoId, gugunId, dongId){
         let dongSelectElement = document.getElementById(dongId);
         dongSelectElement.addEventListener("change", () => {
@@ -358,20 +376,25 @@
               ).then((res) => res.json())
               .then((data) => {
                 console.log(data);
-                
-                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
                 for(let i = 0; i < data.length; i++){
-
-                  let imageSize = new kakao.maps.Size(24, 35); 
-
-                  let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
                   let marker = new kakao.maps.Marker({
                     map: map,
                     position: new kakao.maps.LatLng(data[i]["lat"], data[i]["lng"]),
-                    image : markerImage
+                    title : data[i]["aptCode"]
                   })
+
+                  let infowindow = new kakao.maps.InfoWindow({
+                    content:
+                    `<div class="card" style="width: 10rem">` +
+                      `<div style ="font-size : x-small">아파트 이름 : \${data[i]["aptName"]}</div>` +
+                      `<div style ="font-size : x-small">건축년도 : \${data[i]["buildYear"]}</div>` +
+                    `</div>`
+                  })
+
+                  kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                  kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
                 }
               });
           });      
