@@ -26,6 +26,7 @@ public class MainServlet extends HttpServlet {
 	private LocationController locationController = new LocationController();
 	private ApartController apartController = new ApartController();
 	private NoticeController noticeController = new NoticeController();
+	private AreaController areaController = new AreaController();
 	private String root;
 	
 	@Override
@@ -76,6 +77,8 @@ public class MainServlet extends HttpServlet {
 				controller = apartController;
 			}else if(url.startsWith("/notice")) {
 				controller = noticeController;
+			}else if(url.startsWith("/area")) {
+				controller = areaController;
 			}
 			else {
 				controller = homeController;
