@@ -67,10 +67,17 @@ public class AreaController implements Controller{
 		String gugunName = request.getParameter("gugunName");
 		String dongName = request.getParameter("dongName");
 		
+		System.out.println("||||"+sidoName+","+gugunName+","+dongName);
 		String dongCode = locationService.getDongCode(sidoName, gugunName, dongName);
+		
+		System.out.println("gwansimRegist dongCode = " + dongCode);
+		
 		boolean res = areaService.registerUserArea(new UserArea(userId,dongCode));
 		
+		System.out.println("res = " +res);
 		
+		if(res) System.out.println("area insert sucess");
+		else System.out.println("area insert fail");
 		
 	}
 	
@@ -79,7 +86,7 @@ public class AreaController implements Controller{
 		
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		
+		System.out.println("userId : "+userId);
 		List<UserArea> userareas = areaService.getUserAreaListByUserId(userId);
 		
 		for(UserArea ua : userareas) {

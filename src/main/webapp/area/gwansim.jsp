@@ -158,6 +158,7 @@
       let gugunName = gugunSelectElement.options[gugunSelectElement.selectedIndex].text;
       let sidoName = sidoSelectElement.options[sidoSelectElement.selectedIndex].text;
       
+      console.log(dongName + " " + sidoName + " " + gugunName);
 
       fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimRegist.do`,{
         method: "POST",

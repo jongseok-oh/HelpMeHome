@@ -79,7 +79,7 @@ public class AreaDAO {
 			
 			// step3
 			pstmt = conn.prepareStatement(sql);
-			
+			pstmt.setString(1, dongCode);
 			// step4
 			rs = pstmt.executeQuery();
 			
