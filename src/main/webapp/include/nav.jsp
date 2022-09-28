@@ -49,6 +49,7 @@
                             </li>
                             </c:when>
                             <c:otherwise>
+                             <li class="nav-item"><a class="nav-link" href="${root}/area/gwansimForm.do">관심지역</a></li>
                            		 <li class="nav-item"><a class="nav-link" href="${root}/user/fix_form.do">수정</a></li>
                            		 <li class="nav-item"><a class="nav-link" href="${root}/user/logout.do">로그아웃</a></li>	
                            	</c:otherwise>
