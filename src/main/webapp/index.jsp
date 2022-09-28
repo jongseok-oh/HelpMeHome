@@ -151,42 +151,16 @@
           </div>
           <br />
           <div class="row gx-5">
-            <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: row; height : 600px">
               <div style="flex-basis: 10%"></div>
               <ul class="list-group list-group-flush" style="flex-basis: 20%">
                 <li class="list-group-item" style="font-size: 30px">거래 정보</li>
-                <li class="list-group-item">
-                  극동 <br />
-                  거래금액 : 32,500만원 <br />
-                  면적:84.83 <br />
-                  2019. 12. 3
-                </li>
-                <li class="list-group-item">
-                  도봉산리베니움 <br />
-                  거래금액 : 29,500만원 <br />
-                  면적:84.19 <br />
-                  2019. 12. 12
-                </li>
-                <li class="list-group-item">
-                  도봉파크빌2 <br />
-                  거래금액 : 43,100만원 <br />
-                  면적:84.166 <br />
-                  2019. 11. 4
-                </li>
-                <li class="list-group-item">
-                  도봉파크빌3 <br />
-                  거래금액 : 45,600만원 <br />
-                  면적:84.163 <br />
-                  2019. 10. 14
-                </li>
-                <li class="list-group-item">
-                  동아에코빌 <br />
-                  거래금액 : 48,000만원 <br />
-                  면적:84.967000000001 <br />
-                  2019. 12. 2
-                </li>
+                
+                <div style="overflow-y:auto; height : 100%; white-space:nowrap;" id = "trade-info">
+
+                </div>
               </ul>
-              <div id="map" style="flex-basis: 60%"></div>
+              <div id="map" style="flex-basis: 60%; "></div>
               <div style="flex-basis: 10%"></div>
             </div>
           </div>
@@ -297,14 +271,16 @@
         });
       }
 
-      function gugunSelectOnChange(gugunId, dongId) {
+      function gugunSelectOnChange(sidoId, gugunId, dongId) {
         let gugunSelectElement = document.getElementById(gugunId);
+        let sidoSelectElement = document.getElementById(sidoId);
         gugunSelectElement.addEventListener("change", () => {
           let gugunName = gugunSelectElement.options[gugunSelectElement.selectedIndex].text;
+          let sidoName = sidoSelectElement.options[sidoSelectElement.selectedIndex].text;
           //console.log(sidoName);
           let dongSelectElement = document.getElementById(dongId);
           fetch(
-            "http://localhost:8080/whereismyhome08_3/location/getdong.do?gugunName=" + gugunName
+            `http://localhost:8080/whereismyhome08_3/location/getdong.do?gugunName=\${gugunName}&sidoName=\${sidoName}`
           )
             .then((res) => res.json())
             .then((data) => {
@@ -320,6 +296,51 @@
               }
             });
         });
+      }
+
+      function closeOverlay() {
+        overlay.setMap(null);     
+      }
+
+      
+      function makeOverListener(map, marker, infowindow) {
+        return function() {
+            infowindow.open(map, marker);
+        };
+      }
+
+      
+      function makeOutListener(infowindow) {
+        return function() {
+            infowindow.close();
+        };
+      }
+
+      let tradeInfoScroll = document.getElementById("trade-info");
+
+      function makeClickListener(marker, apartName){
+        return function(){
+          let aptCode = marker.getTitle();
+          console.log("aptCode = " + aptCode);
+          tradeInfoScroll.innerHTML = "";
+          fetch(`http://localhost:8080/whereismyhome08_3/apart/deallist.do?aptCode=\${aptCode}`)
+          .then((res) => res.json())
+          .then((data) =>{
+            console.log(data);
+            for(let i = 0; i<data.length; i++){
+              let dealInfoLi = document.createElement("li");
+              //dealInfoLi.className = "list-group-item";
+              let tdata = data[i];
+              dealInfoLi.innerHTML = `\${apartName} <br />
+                                      거래금액 : \${tdata["dealAmount"]}만원 <br />
+                                      면적 : \${tdata["area"]} <br />
+                                      층 : \${tdata["floor"]} <br />
+                                      \${tdata["dealYear"]}. \${tdata["dealMonth"]}. \${tdata["dealDay"]}<br />
+                                      -------------------------------`
+              tradeInfoScroll.appendChild(dealInfoLi);
+            }
+          })
+        }
       }
 
       function dongSelectOnChange(sidoId, gugunId, dongId){
@@ -358,20 +379,26 @@
               ).then((res) => res.json())
               .then((data) => {
                 console.log(data);
-                
-                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
                 for(let i = 0; i < data.length; i++){
-
-                  let imageSize = new kakao.maps.Size(24, 35); 
-
-                  let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
                   let marker = new kakao.maps.Marker({
                     map: map,
                     position: new kakao.maps.LatLng(data[i]["lat"], data[i]["lng"]),
-                    image : markerImage
+                    title : data[i]["aptCode"]
                   })
+
+                  let infowindow = new kakao.maps.InfoWindow({
+                    content:
+                    `<div class="card" style="width: 10rem">` +
+                      `<div style ="font-size : x-small">아파트 이름 : \${data[i]["aptName"]}</div>` +
+                      `<div style ="font-size : x-small">건축년도 : \${data[i]["buildYear"]}</div>` +
+                    `</div>`
+                  })
+
+                  kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                  kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+                  kakao.maps.event.addListener(marker, 'click', makeClickListener(marker, data[i]["aptName"]));
                 }
               });
           });      
@@ -381,8 +408,8 @@
 
       sidoSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
       sidoSelectOnChange("apart-sido", "apart-gugun", "apart-dong");
-      gugunSelectOnChange("dongbyeol-gugun", "dongbyeol-dong");
-      gugunSelectOnChange("apart-gugun", "apart-dong");
+      gugunSelectOnChange("dongbyeol-sido","dongbyeol-gugun", "dongbyeol-dong");
+      gugunSelectOnChange("apart-sido","apart-gugun", "apart-dong");
 
       dongSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
     </script>
