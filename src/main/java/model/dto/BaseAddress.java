@@ -19,6 +19,14 @@ public class BaseAddress {
 		this.lng = lng;
 	}
 	
+	public BaseAddress(String dongCode,String sidoName, String gugunName, String dongName) {
+		super();
+		this.dongCode = dongCode;
+		this.sidoName = sidoName;
+		this.gugunName = gugunName;
+		this.dongName = dongName;
+	}
+	
 	public int getNo() {
 		return no;
 	}

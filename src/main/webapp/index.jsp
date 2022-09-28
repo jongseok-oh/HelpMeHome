@@ -163,9 +163,9 @@
               <div id="map" style="flex-basis: 60%; "></div>
               <div style="flex-basis: 10%"></div>
             </div>
-          </div>
+           </div>
           <br /><br /><br /><br /><br />
-          <div class="row gx-5 justify-content-center">
+           <div class="row gx-5 justify-content-center">
             <div class="col-lg-8 col-xl-6">
               <div style="display: flex; flex-direction: row">
                 <select
