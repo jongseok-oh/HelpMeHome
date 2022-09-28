@@ -76,8 +76,10 @@ public class LocationController implements Controller{
 	private JSONArray getDongList(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray jsonArray = new JSONArray();
 		
+		String sidoName = request.getParameter("sidoName");
 		String gugunName = request.getParameter("gugunName");
-		List<String> dongList = locationService.getDongListByGugun(gugunName);
+		System.out.println("sidoName = " + sidoName + " gugunName = " + gugunName);
+		List<String> dongList = locationService.getDongNameList(sidoName, gugunName);
 		
 		for(String s: dongList) {
 			jsonArray.put(s);

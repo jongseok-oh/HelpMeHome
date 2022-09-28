@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dao.ApartDao;
 import model.dto.BaseAddress;
+import model.dto.HouseDeal;
 import model.dto.Houseinfo;
 
 public class ApartService {
@@ -11,5 +12,9 @@ public class ApartService {
 	
 	public List<Houseinfo> getHouseinfoListByDongCode(String dongCode){
 		return apartDao.getHouseinfoByDongCode(dongCode);
+	}
+	
+	public List<HouseDeal> getHouseDealListByAptCode(int aptCode){
+		return apartDao.getHouseDealByAptCode(aptCode);
 	}
 }

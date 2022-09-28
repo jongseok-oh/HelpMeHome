@@ -93,7 +93,7 @@ public class MainServlet extends HttpServlet {
 				}else {
 					response.sendRedirect(request.getContextPath()+pageInfo.getPage());
 				}
-			} else {
+			} else if(result instanceof JSONArray){
 				JSONArray jarray = (JSONArray) result;
 				response.setCharacterEncoding("utf-8");
 				response.getWriter().print(jarray.toString()); 

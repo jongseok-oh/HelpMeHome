@@ -14,14 +14,6 @@ import model.dto.SidoCode;
 public class LocationService {
 	private LocationDao locationDao = new LocationDao();
 	
-	// static instance
-	private Map<String, List<String>> sidoGunMap = new HashMap<>();
-	private Map<String, List<String>> gugunDongMap = new HashMap<>();
-	private List<SidoCode> sidoCodes;
-	private List<GugunCode> gugunCodes;
-	private List<DongCode> dongCodes;
-	// -----------------------------------------------------------------
-	
 	public static LocationService getInstance() {
 		return LazyHolder.instance;
 	}
@@ -31,61 +23,23 @@ public class LocationService {
 	}
 	
 	private LocationService() {
-		sidoCodes = locationDao.getSidoCodeList();
-		gugunCodes = locationDao.getGugunCodeList();
-		dongCodes = locationDao.getDongCodeList();
-		
-		// select box를 위한 자료구조 생성
-		for(SidoCode s: sidoCodes) {
-			String sStart = s.getSidoCode().substring(0, 2);
-			String sName = s.getSidoName();
-			sidoGunMap.put(sName, new ArrayList<String> ());
-			
-			for(GugunCode g: gugunCodes) {
-				String gStart = g.getGugunCode().substring(0, 5);
-				String gName = g.getGugunName();
-				
-				if(gStart.startsWith(sStart))
-					sidoGunMap.get(sName).add(gName);
-				
-				gugunDongMap.put(gName, new ArrayList<String>());
-				
-				for(DongCode d: dongCodes) {
-					String dString = d.getDongCode();
-					
-					if(dString.startsWith(gStart))
-						gugunDongMap.get(gName).add(d.getDongName());
-				}
-			}
-			
-		}
 	}
 	
 	public List<SidoCode> getSidoList(){
-		return this.sidoCodes;
+		return locationDao.getSidoCodeList();
 	}
 	
 	public List<String> getGugunListBySido(String sidoName){
-		if(sidoGunMap.containsKey(sidoName))
-			return sidoGunMap.get(sidoName);
-		return null;
+		String sidoCode = locationDao.getSidoCodeBySidoName(sidoName);
+		return locationDao.getGugunNameListBySidoCode(sidoCode);
 	}
 	
-	public List<String> getDongListByGugun(String gugunName){
-		if(gugunDongMap.containsKey(gugunName))
-			return gugunDongMap.get(gugunName);
-		return null;
+	public List<String> getDongNameList(String sidoName, String gugunName){
+		return locationDao.getDongNameList(sidoName, gugunName);
 	}
 	
 	public String getDongCode(String sidoName, String gugunName, String dongName) {
-		
-		for(DongCode dc: dongCodes) {
-			if(dc.getSidoName().equals(sidoName)
-			&& dc.getGugunName().equals(gugunName)
-			&& dc.getDongName().equals(dongName))
-			return dc.getDongCode();
-		}
-		return null;
+		return locationDao.getDongCode(sidoName, gugunName, dongName);
 	}
 	
 	public BaseAddress getBaseAddressByDongCode(String dongCode) {
