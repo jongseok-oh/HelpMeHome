@@ -164,54 +164,7 @@
               <div style="flex-basis: 10%"></div>
             </div>
           </div>
-          <br /><br /><br /><br /><br />
-          <div class="row gx-5 justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-              <div style="display: flex; flex-direction: row">
-                <select
-                  class="form-select sido-select"
-                  id="apart-sido"
-                  aria-label="Default select example"
-                >
-                  <option selected disabled>시/도</option>
-                </select>
-                <select class="form-select" id="apart-gugun" aria-label="Default select example">
-                  <option selected disabled>시/구/군</option>
-                </select>
-                <select class="form-select" id="apart-dong" aria-label="Default select example">
-                  <option selected disabled>동</option>
-                </select>
-                  <input class="btn btn-primary" style="margin:0px 5px; width:400px" type='button' value='조회'/>
-              </div>
-            </div>
-          </div>
-          <br />
-          
-          
-		
-		<div class="row">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>일시</th>
-						<th>동</th>
-						<th>아파트명</th>
-						<th>층</th>
-						<th>금액</th>
-					</tr>			
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>					
-						<td>1</td>	
-						<td>1</td>
-						<td>1</td>
-						<td>1</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>	
-	</div>
+          <br /><br /><br /><br /><br /><br />
       </section>
     </main>
     <%@ include file="/include/footer.jsp" %>
@@ -407,10 +360,7 @@
 
 
       sidoSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
-      sidoSelectOnChange("apart-sido", "apart-gugun", "apart-dong");
       gugunSelectOnChange("dongbyeol-sido","dongbyeol-gugun", "dongbyeol-dong");
-      gugunSelectOnChange("apart-sido","apart-gugun", "apart-dong");
-
       dongSelectOnChange("dongbyeol-sido", "dongbyeol-gugun", "dongbyeol-dong");
     </script>
   </body>
