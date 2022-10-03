@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import model.dto.PageInfo;
 import model.dto.User;
@@ -101,6 +102,10 @@ public class MainServlet extends HttpServlet {
 				JSONArray jarray = (JSONArray) result;
 				response.setCharacterEncoding("utf-8");
 				response.getWriter().print(jarray.toString()); 
+			} else if(result instanceof JSONObject) {
+				JSONObject jsonObject = (JSONObject) result;	
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print(jsonObject.toString()); 
 			}
 			
 		} catch (Exception e) {

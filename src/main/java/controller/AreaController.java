@@ -55,10 +55,11 @@ public class AreaController implements Controller{
 		
 		
 	}
-
-	private void gwansimRegist(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private JSONObject gwansimRegist(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		//세션에서 String userId = request.getParameter("userId");
 		//location        String dongCode = request.getParameter("dongCode");
+		
+		JSONObject jsonObject = new JSONObject();
 		
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
@@ -76,10 +77,17 @@ public class AreaController implements Controller{
 		
 		System.out.println("res = " +res);
 		
-		if(res) System.out.println("area insert sucess");
-		else System.out.println("area insert fail");
-		
+		if(res) {
+			System.out.println("area insert sucess");
+			jsonObject.put("status", 201);
+		}
+		else {
+			System.out.println("area insert fail");
+			jsonObject.put("status", 409);
+		}
+		return jsonObject;
 	}
+	
 	
 	private JSONArray getUserAreaListByUserId(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		JSONArray jarray = new JSONArray();
