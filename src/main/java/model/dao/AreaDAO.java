@@ -42,7 +42,7 @@ public class AreaDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<UserArea> list = new ArrayList<UserArea>();
-		String sql = "select userId,dongCode from userarea";
+		String sql = "select userId,dongCode from userarea where userId = ?";
 		
 		try {
 			// step2
@@ -50,6 +50,7 @@ public class AreaDAO {
 			
 			// step3
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
 			
 			// step4
 			rs = pstmt.executeQuery();
