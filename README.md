@@ -25,13 +25,13 @@
 
 ### 💻 프로그램 실행 예시
 #### 메인화면.
-![메인화면](/uploads/301a6872ec1044e06b08c7e01ebf0b48/메인화면.gif)
+![메인화면](https://user-images.githubusercontent.com/80913353/193598007-9fb6199f-97d8-4b4b-8272-75037171e09d.gif)
 #### 회원가입 로그인.
-![회원가입_로그인](/uploads/6fc1ef623ea6fd347aaae5c316ca8bae/회원가입_로그인.gif)
+![회원가입_로그인](https://user-images.githubusercontent.com/80913353/193598017-a5561e28-3f49-4720-96e9-e66c2df51121.gif)
 #### 회원정보수정.
-![회원정보수정](/uploads/683ac2db28dbe648e0b6e9e25bdddb7b/회원정보수정.gif)
+![회원정보수정](https://user-images.githubusercontent.com/80913353/193598019-db7e93f4-3cf7-413f-9090-c956b639dc64.gif)
 #### 아파트 거래정보.
-![아파트거래정보](/uploads/637aa65394a1286b8530b8ddace7eda7/아파트거래정보.gif)
+![아파트거래정보](https://user-images.githubusercontent.com/80913353/193598014-a920820f-fbdb-4d52-ba57-d7a0cd719697.gif)
 #### 관심지역 추가 삭제
-![관심지역](/uploads/1c0371063e3dc390a9bf1dbc058e6519/관심지역.gif)
+![관심지역](https://user-images.githubusercontent.com/80913353/193598000-b6bd4c6b-3d7e-40cd-aeb6-ec0fc24be4a0.gif)
 
