@@ -62,7 +62,7 @@ public class AreaController implements Controller{
 		
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		
+	
 		String sidoName = request.getParameter("sidoName");
 		String gugunName = request.getParameter("gugunName");
 		String dongName = request.getParameter("dongName");

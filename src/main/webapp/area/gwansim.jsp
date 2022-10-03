@@ -76,18 +76,51 @@
       fetch(`http://localhost:8080/whereismyhome08_3/location/getcoordinate.do`,{
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: JSON.stringify({
-          sidoName: sidoName,
-          gugunName: gugunName,
-          dongName: dongName
-        })
+        body: 'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName
       })
       .then((res) => res.json())
       .then((data) =>{
         let moveLatLon = new kakao.maps.LatLng(data[0]["lat"], data[0]["lng"]);
         map.panTo(moveLatLon);
+      })
+    }
+
+
+
+    function getUserAreaList(){
+      areaList.innerHTML = "";
+      fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimList.do`)
+      .then((res) => res.json())
+      .then((data) =>{
+        console.log(data);
+        for(let i = 0; i<data.length; i++){
+          let userArea = document.createElement("div");
+          let tdata = data[i];
+
+          let dongName = tdata["dongName"];
+          let gugunName = tdata["gugunName"];
+          let sidoName = tdata["sidoName"];
+          userArea.setAttribute('data-sidoname',sidoName);
+          userArea.setAttribute('data-gugunname',gugunName);
+          userArea.setAttribute('data-dongname',dongName);
+
+          userArea.innerHTML = `\${dongName} / \${gugunName} / \${sidoName}<br/>`;
+
+          let changeMain = document.createElement("a");
+          changeMain.innerText = "메인으로 변경";
+          changeMain.addEventListener('click',moveMap);
+
+          let deleteArea = document.createElement("a");
+          deleteArea.innerText = "삭제";
+          changeMain.addEventListener('click',removeArea);
+
+          userArea.appendChild(changeMain);
+          userArea.appendChild(deleteArea);
+
+          areaList.appendChild(userArea);
+        }
       })
     }
 
@@ -98,51 +131,17 @@
       let sidoName = p.getAttribute("data-sidoname");
       let gugunName = p.getAttribute("data-gugunname");
 
-      return fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimDelete.do`,{
+      fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimDelete.do`,{
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: JSON.stringify({
-          sidoName: sidoName,
-          gugunName: gugunName,
-          dongName: dongName
-        })
+        body: 'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName
       })
+      getUserAreaList()
     }
 
-    function getUserAreaList(){
-      areaList.innerHTML = "";
-      fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimList.do`)
-      .then((res) => res.json())
-      .then((data) =>{
-        for(let i = 0; i<data.length; i++){
-          let userArea = document.createElement("div");
-          let tdata = data[i];
-
-          let dongName = tdata["dongName"];
-          let gugunName = tdata["gugunName"];
-          let sidoName = tdata["dongName"];
-          userArea.setAttribute('data-sidoname',sidoName);
-          userArea.setAttribute('data-gugunname',gugunName);
-          userArea.setAttribute('data-dongname',dongName);
-
-          userArea.innerHTML = `\${dongName} / \${gugunName} / \${sidoName}<br/>`;
-
-          let changeMain = document.createElement("a");
-          changeMain.innerText = "메인으로 변경";
-          changeMain.addEventListener(moveMap);
-
-          let deleteArea = document.createElement("a");
-          deleteArea.innerText = "삭제";
-          changeMain.addEventListener(removeArea);
-
-          userArea.appendChild(changeMain);
-          userArea.appendChild(deleteArea);
-        }
-      })
-      
-    }
+    getUserAreaList();
 
     appendBtn.addEventListener("click",()=>{
       let dongSelectElement = document.getElementById("dongbyeol-dong");
@@ -160,18 +159,26 @@
       
       console.log(dongName + " " + sidoName + " " + gugunName);
 
+      // let inputBody = {
+      //   sidoName: sidoName,
+      //   gugunName:gugunName,
+      //   dongName: dongName
+      // }
+
+      let inputBody = 'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName;
+
       fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimRegist.do`,{
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: JSON.stringify({
-          sidoName: sidoName,
-          gugunName: gugunName,
-          dongName: dongName
-        })
+        body:inputBody
       })
-      .then(getUserAreaList());
+      .then((data) =>{data.json})
+      .then((res)=>{
+         console.log(res);
+        getUserAreaList();
+      });
     })
 
     fetch("http://localhost:8080/whereismyhome08_3/location/getsido.do")
