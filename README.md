@@ -29,7 +29,7 @@
 #### 로그인 폼.
 ![2-로그인폼](/uploads/40f3d20e7a849044768b308f51a04ea6/로그인폼.PNG)
 #### 로그인 상태.
-![3-로그인상태](/uploads/aa22df944a99ea164b179d33f17e62f9/로그인상태.PNG)
+![3-로그인 상태](/uploads/7ab9d04aedbf973b83a3ff4ab53b611c/관심지역.PNG)
 #### 등록 폼.
 ![4-등록폼](/uploads/ddb9f6c69ddadb94d5e27163d89b7d53/등록폼.PNG)
 #### 회원정보 수정삭제.
