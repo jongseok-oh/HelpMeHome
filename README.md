@@ -39,4 +39,4 @@
 ![6-관심지역페이지](/uploads/428c2b2bf505573e106be02a42a64d03/관심지역페이지.PNG)
 
 #### 로그인 GIF
-![Where_is_My_home_-_Chrome_2022-10-03_22-11-24](/uploads/34342f6b4c5d0f00504a19d3cc2d7599/Where_is_My_home_-_Chrome_2022-10-03_22-11-24.mp4)
+![loginlogout](/uploads/ede5ef2a64e0216b5c1f804a1b2f676b/loginlogout.gif)
