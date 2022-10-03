@@ -26,19 +26,21 @@ public class AreaController implements Controller{
 		if(url.equals("/area/gwansimForm.do")){
 			return gwansimForm(request,response);
 		} else if(url.equals("/area/gwansimRegist.do")){
-			gwansimRegist(request,response);
+			return gwansimRegist(request,response);
 		}else if(url.equals("/area/gwansimList.do")){
 			return getUserAreaListByUserId(request,response);
 		} else if(url.equals("/area/gwansimDelete.do")){
-			gwansimDelete(request,response);
+			return gwansimDelete(request,response);
 		}
 		return null;
 	}
 
-	private void gwansimDelete(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private JSONObject gwansimDelete(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
+		
+		JSONObject jsonObject = new JSONObject();
 		
 		String sidoName = request.getParameter("sidoName");
 		String gugunName = request.getParameter("gugunName");
@@ -48,12 +50,14 @@ public class AreaController implements Controller{
 		
 		boolean res = areaService.deleteUserArea(userId, dongCode);
 		if(res) {
-			request.setAttribute("msg", "관심 목록 삭제에 성공하였습니다.");
-		}else {
-			request.setAttribute("msg", "관심 목록 삭제에 실패하였습니다.");			
+			System.out.println("area delete sucess");
+			jsonObject.put("status", 201);
 		}
-		
-		
+		else {
+			System.out.println("area delete fail");
+			jsonObject.put("status", 409);
+		}
+		return jsonObject;
 	}
 	private JSONObject gwansimRegist(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		//세션에서 String userId = request.getParameter("userId");
@@ -68,7 +72,7 @@ public class AreaController implements Controller{
 		String gugunName = request.getParameter("gugunName");
 		String dongName = request.getParameter("dongName");
 		
-		System.out.println("||||"+sidoName+","+gugunName+","+dongName);
+		//System.out.println("||||"+sidoName+","+gugunName+","+dongName);
 		String dongCode = locationService.getDongCode(sidoName, gugunName, dongName);
 		
 		System.out.println("gwansimRegist dongCode = " + dongCode);
@@ -106,8 +110,6 @@ public class AreaController implements Controller{
 			jarray.put(jsonObject);
 			
 		}
-		
-		
 		return jarray;
 	}
 	

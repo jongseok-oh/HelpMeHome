@@ -64,9 +64,6 @@ public class MainServlet extends HttpServlet {
 				return;
 			}
 		}
-		
-		
-		
 		Object result = null;
 		
 		try {
@@ -105,7 +102,7 @@ public class MainServlet extends HttpServlet {
 			} else if(result instanceof JSONObject) {
 				JSONObject jsonObject = (JSONObject) result;	
 				response.setCharacterEncoding("utf-8");
-				response.getWriter().print(jsonObject.toString()); 
+				response.getWriter().print(jsonObject); 
 			}
 			
 		} catch (Exception e) {

@@ -29,7 +29,7 @@
                       <select class="form-select" id="dongbyeol-dong" aria-label="Default select example">
                         <option selected disabled>동</option>
                       </select>
-                      <button type="button" class="btn btn-primary" id = "appendBtn">관심 지역 추가</button>
+                      <button type="button" class="btn btn-primary" style="width: 1000px;" id = "appendBtn">관심 지역 추가</button>
                     </div>
                   </div>
                 </div>
@@ -109,14 +109,20 @@
           userArea.innerHTML = `\${dongName} / \${gugunName} / \${sidoName}<br/>`;
 
           let changeMain = document.createElement("a");
+          changeMain.className = "link-primary";
           changeMain.innerText = "메인으로 변경";
           changeMain.addEventListener('click',moveMap);
 
           let deleteArea = document.createElement("a");
+          deleteArea.className = "link-primary";
+
           deleteArea.innerText = "삭제";
-          changeMain.addEventListener('click',removeArea);
+          deleteArea.addEventListener('click',removeArea);
+
+          let textNode = document.createTextNode("     ");
 
           userArea.appendChild(changeMain);
+          userArea.appendChild(textNode);
           userArea.appendChild(deleteArea);
 
           areaList.appendChild(userArea);
@@ -137,8 +143,11 @@
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
         body: 'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName
+      }).then((res) => res.json())
+      .then((data) => {
+        if(data["status"] == 201) getUserAreaList();
+        else alert("삭제 실패");
       })
-      getUserAreaList()
     }
 
     getUserAreaList();
@@ -159,25 +168,16 @@
       
       console.log(dongName + " " + sidoName + " " + gugunName);
 
-      // let inputBody = {
-      //   sidoName: sidoName,
-      //   gugunName:gugunName,
-      //   dongName: dongName
-      // }
-
-      let inputBody = 'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName;
-
       fetch(`http://localhost:8080/whereismyhome08_3/area/gwansimRegist.do`,{
         method: "POST",
         headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body:inputBody
-      })
-      .then((data) =>{data.json})
-      .then((res)=>{
-         console.log(res);
-        getUserAreaList();
+        body:'sidoName=' + sidoName +'&gugunName='+gugunName+'&dongName='+dongName
+      }).then((res) =>res.json())
+      .then((data)=>{
+        if(data["status"] == 201) getUserAreaList();
+        else alert("추가 실패")
       });
     })
 
