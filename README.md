@@ -37,3 +37,5 @@
 #### 관심지역 화면
 ![6-관심지역페이지](/uploads/428c2b2bf505573e106be02a42a64d03/관심지역페이지.PNG)
 
+#### 로그인 GIF
+![Where_is_My_home_-_Chrome_2022-10-03_22-11-24](/uploads/34342f6b4c5d0f00504a19d3cc2d7599/Where_is_My_home_-_Chrome_2022-10-03_22-11-24.mp4)
